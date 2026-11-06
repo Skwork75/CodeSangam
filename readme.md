@@ -44,7 +44,7 @@ LeetCode tab  ──►  Popup reads URL  ──►  Extracts slug  ──►  L
 4. It looks up the slug in a verified mapping database.
 5. It shows the matching HackerRank and CodeChef problems, or a "not found" message.
 
-For the full technical design, see [`docs/ARCHITECTURE.md`](`docs/ARCHITECTURE.md`).
+For the full technical design, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ---
 
@@ -159,7 +159,7 @@ Contributions are welcome, especially new verified mappings.
 
 ## 📄 License
 
-Distributed under the MIT License. See [`LICENSE`](`LICENSE`) for details.
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
