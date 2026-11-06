@@ -9,7 +9,7 @@
 <body>
   <div class="header">
     <h1>🧩 CodeSangam</h1>
-    <p class="tagline">Equivalent problems across platforms</p>
+    <p class="tagline">Find alternative coding problems</p>
   </div>
 
   <main id="app">
@@ -21,14 +21,14 @@
     <div id="unsupported-state" class="state-container hidden">
       <div class="icon-badge">⚠️</div>
       <h2>Not a LeetCode Problem</h2>
-      <p>Open a LeetCode problem page (e.g. <code>leetcode.com/problems/...</code>) and click CodeSangam to find equivalents.</p>
+      <p>Open a LeetCode problem page (e.g. <code>leetcode.com/problems/...</code>) and click CodeSangam to find alternatives.</p>
     </div>
 
     <div id="not-found-state" class="state-container hidden">
       <div class="icon-badge">🔍</div>
-      <h2>No Equivalents Found</h2>
+      <h2>No Alternatives Found</h2>
       <p id="not-found-slug" class="problem-slug"></p>
-      <p class="sub-text">No verified equivalents found for this LeetCode problem yet.</p>
+      <p class="sub-text">No alternative questions found yet. We\'re expanding our database.</p>
     </div>
 
     <div id="result-state" class="state-container hidden">
@@ -38,26 +38,19 @@
       </div>
       <p id="leetcode-slug" class="problem-slug"></p>
 
-      <div class="platforms-list">
-        <!-- HackerRank Card -->
-        <div class="platform-card" id="hackerrank-card">
-          <div class="platform-info">
-            <span class="platform-name">HackerRank</span>
-            <span id="hackerrank-title" class="platform-problem-title">--</span>
-          </div>
-          <a id="hackerrank-link" href="#" target="_blank" rel="noopener noreferrer" class="platform-btn hidden">Open</a>
-          <span id="hackerrank-missing" class="platform-missing hidden">No verified match</span>
-        </div>
+      <div class="summary-bar">
+        <span id="summary-text">0 alternatives across 0 platforms</span>
+      </div>
 
-        <!-- CodeChef Card -->
-        <div class="platform-card" id="codechef-card">
-          <div class="platform-info">
-            <span class="platform-name">CodeChef</span>
-            <span id="codechef-title" class="platform-problem-title">--</span>
-          </div>
-          <a id="codechef-link" href="#" target="_blank" rel="noopener noreferrer" class="platform-btn hidden">Open</a>
-          <span id="codechef-missing" class="platform-missing hidden">No verified match</span>
-        </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="exact">Exact</button>
+        <button class="filter-btn" data-filter="similar">Similar</button>
+        <button class="filter-btn" data-filter="related">Related</button>
+      </div>
+
+      <div id="alternatives-list" class="alternatives-list">
+        <!-- Dynamically rendered alternative cards -->
       </div>
     </div>
 
@@ -69,7 +62,7 @@
   </main>
 
   <footer>
-    <span>CodeSangam v0.1.0</span>
+    <span>CodeSangam v0.2.0</span>
   </footer>
 
   <script type="module" src="popup.js"></script>

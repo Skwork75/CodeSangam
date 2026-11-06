@@ -9,6 +9,28 @@ const MAPPINGS_PATH = path.join(__dirname, '../data/mappings.json');
 const SLUG_REGEX = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 
+const ALLOWED_PLATFORMS = new Set([
+  'HackerRank',
+  'CodeChef',
+  'GeeksforGeeks',
+  'HackerEarth',
+  'Codeforces',
+  'AtCoder',
+  'Codewars'
+]);
+
+const PLATFORM_DOMAINS = {
+  'HackerRank': 'www.hackerrank.com',
+  'CodeChef': 'www.codechef.com',
+  'GeeksforGeeks': 'www.geeksforgeeks.org',
+  'HackerEarth': 'www.hackerearth.com',
+  'Codeforces': 'codeforces.com',
+  'AtCoder': 'atcoder.jp',
+  'Codewars': 'www.codewars.com'
+};
+
+const ALLOWED_MATCH_TYPES = new Set(['exact', 'similar', 'related']);
+
 function isValidDate(dateString) {
   if (!DATE_REGEX.test(dateString)) return false;
   const [year, month, day] = dateString.split('-').map(Number);
@@ -20,11 +42,13 @@ function isValidDate(dateString) {
   );
 }
 
-function isValidUrl(urlString, expectedDomain) {
+function isValidPlatformUrl(urlString, platform) {
   try {
     const parsed = new URL(urlString);
+    const expectedDomain = PLATFORM_DOMAINS[platform];
     return (
       parsed.protocol === 'https:' &&
+      expectedDomain &&
       parsed.hostname.toLowerCase() === expectedDomain
     );
   } catch {
@@ -57,7 +81,6 @@ function validateMappings() {
   let hasErrors = false;
 
   for (const [key, value] of Object.entries(mappings)) {
-    // 1. Validate mapping key format
     if (!SLUG_REGEX.test(key)) {
       console.error(`[Error] Key "${key}" does not match slug format ^[a-z0-9]+(-[a-z0-9]+)*$`);
       hasErrors = true;
@@ -69,7 +92,6 @@ function validateMappings() {
       continue;
     }
 
-    // 2. Validate leetcode field
     if (!value.leetcode || typeof value.leetcode !== 'object') {
       console.error(`[Error] Mapping "${key}" is missing required "leetcode" object.`);
       hasErrors = true;
@@ -84,50 +106,61 @@ function validateMappings() {
       }
     }
 
-    // 3. Validate hackerrank field
-    if (value.hackerrank !== null && value.hackerrank !== undefined) {
-      if (typeof value.hackerrank !== 'object') {
-        console.error(`[Error] Mapping "${key}" hackerrank must be null or an object.`);
+    if (value.alternatives !== undefined) {
+      if (!Array.isArray(value.alternatives)) {
+        console.error(`[Error] Mapping "${key}" alternatives must be an array.`);
         hasErrors = true;
       } else {
-        if (typeof value.hackerrank.title !== 'string' || value.hackerrank.title.trim() === '') {
-          console.error(`[Error] Mapping "${key}" hackerrank.title must be a non-empty string.`);
-          hasErrors = true;
-        }
-        if (typeof value.hackerrank.url !== 'string' || !isValidUrl(value.hackerrank.url, 'www.hackerrank.com')) {
-          console.error(`[Error] Mapping "${key}" hackerrank.url must be a valid https://www.hackerrank.com URL.`);
-          hasErrors = true;
+        const seenIds = new Set();
+        for (const [index, alt] of value.alternatives.entries()) {
+          if (!alt || typeof alt !== 'object') {
+            console.error(`[Error] Mapping "${key}" alternative at index ${index} must be an object.`);
+            hasErrors = true;
+            continue;
+          }
+
+          if (typeof alt.id !== 'string' || alt.id.trim() === '') {
+            console.error(`[Error] Mapping "${key}" alternative at index ${index} has missing or invalid id.`);
+            hasErrors = true;
+          } else {
+            if (seenIds.has(alt.id)) {
+              console.error(`[Error] Mapping "${key}" has duplicate alternative id "${alt.id}".`);
+              hasErrors = true;
+            }
+            seenIds.add(alt.id);
+          }
+
+          if (!ALLOWED_PLATFORMS.has(alt.platform)) {
+            console.error(`[Error] Mapping "${key}" alternative at index ${index} has unsupported platform "${alt.platform}".`);
+            hasErrors = true;
+          }
+
+          if (typeof alt.title !== 'string' || alt.title.trim() === '') {
+            console.error(`[Error] Mapping "${key}" alternative at index ${index} has missing or invalid title.`);
+            hasErrors = true;
+          }
+
+          if (typeof alt.url !== 'string' || !isValidPlatformUrl(alt.url, alt.platform)) {
+            console.error(`[Error] Mapping "${key}" alternative at index ${index} has invalid or insecure URL for platform "${alt.platform}".`);
+            hasErrors = true;
+          }
+
+          if (!ALLOWED_MATCH_TYPES.has(alt.matchType)) {
+            console.error(`[Error] Mapping "${key}" alternative at index ${index} has invalid matchType "${alt.matchType}".`);
+            hasErrors = true;
+          }
+
+          if (typeof alt.verified !== 'boolean') {
+            console.error(`[Error] Mapping "${key}" alternative at index ${index} has invalid or missing verified boolean.`);
+            hasErrors = true;
+          }
+
+          if (typeof alt.lastUpdated !== 'string' || !isValidDate(alt.lastUpdated)) {
+            console.error(`[Error] Mapping "${key}" alternative at index ${index} has invalid lastUpdated date (expected YYYY-MM-DD).`);
+            hasErrors = true;
+          }
         }
       }
-    }
-
-    // 4. Validate codechef field
-    if (value.codechef !== null && value.codechef !== undefined) {
-      if (typeof value.codechef !== 'object') {
-        console.error(`[Error] Mapping "${key}" codechef must be null or an object.`);
-        hasErrors = true;
-      } else {
-        if (typeof value.codechef.title !== 'string' || value.codechef.title.trim() === '') {
-          console.error(`[Error] Mapping "${key}" codechef.title must be a non-empty string.`);
-          hasErrors = true;
-        }
-        if (typeof value.codechef.url !== 'string' || !isValidUrl(value.codechef.url, 'www.codechef.com')) {
-          console.error(`[Error] Mapping "${key}" codechef.url must be a valid https://www.codechef.com URL.`);
-          hasErrors = true;
-        }
-      }
-    }
-
-    // 5. Validate verified field
-    if (typeof value.verified !== 'boolean') {
-      console.error(`[Error] Mapping "${key}" has invalid or missing "verified" boolean.`);
-      hasErrors = true;
-    }
-
-    // 6. Validate lastUpdated field
-    if (typeof value.lastUpdated !== 'string' || !isValidDate(value.lastUpdated)) {
-      console.error(`[Error] Mapping "${key}" has invalid or missing "lastUpdated" date (expected YYYY-MM-DD).`);
-      hasErrors = true;
     }
   }
 

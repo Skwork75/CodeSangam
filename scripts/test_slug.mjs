@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert';
 import { extractSlug } from '../lib/slug.js';
-import { findEquivalents } from '../lib/matcher.js';
+import { findAlternatives, findEquivalents } from '../lib/matcher.js';
 
 test('extractSlug - valid URLs', () => {
   assert.strictEqual(extractSlug('https://leetcode.com/problems/two-sum/'), 'two-sum');
@@ -30,13 +30,28 @@ test('extractSlug - malformed or missing problem slugs', () => {
   assert.strictEqual(extractSlug('https://leetcode.com/explore/'), null);
 });
 
-test('matcher - findEquivalents with non-existent slug', async () => {
-  const result = await findEquivalents('non-existent-problem-slug-12345');
+test('matcher - findAlternatives with non-existent slug', async () => {
+  const result = await findAlternatives('non-existent-problem-slug-12345');
   assert.strictEqual(result, null);
 });
 
-test('matcher - findEquivalents with invalid inputs', async () => {
-  assert.strictEqual(await findEquivalents(null), null);
-  assert.strictEqual(await findEquivalents(''), null);
-  assert.strictEqual(await findEquivalents('   '), null);
+test('matcher - findAlternatives with invalid inputs', async () => {
+  assert.strictEqual(await findAlternatives(null), null);
+  assert.strictEqual(await findAlternatives(''), null);
+  assert.strictEqual(await findAlternatives('   '), null);
+});
+
+test('matcher - findAlternatives with valid multi-alternative slug', async () => {
+  const result = await findAlternatives('two-sum');
+  assert.notStrictEqual(result, null);
+  assert.strictEqual(result.leetcode.title, 'Two Sum');
+  assert.strictEqual(Array.isArray(result.alternatives), true);
+  assert.strictEqual(result.alternatives.length, 2);
+  assert.strictEqual(result.alternatives[0].platform, 'HackerRank');
+});
+
+test('matcher - findEquivalents backward compatibility', async () => {
+  const result = await findEquivalents('two-sum');
+  assert.notStrictEqual(result, null);
+  assert.strictEqual(result.leetcode.title, 'Two Sum');
 });

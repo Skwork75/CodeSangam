@@ -4,38 +4,99 @@
       "title": "Two Sum",
       "difficulty": "Easy"
     },
-    "hackerrank": {
-      "title": "Solve Me First",
-      "url": "https://www.hackerrank.com/challenges/solve-me-first/problem"
-    },
-    "codechef": null,
-    "verified": true,
-    "lastUpdated": "2026-03-30"
+    "alternatives": [
+      {
+        "id": "hr-solve-me-first",
+        "platform": "HackerRank",
+        "title": "Solve Me First",
+        "url": "https://www.hackerrank.com/challenges/solve-me-first/problem",
+        "difficulty": "Easy",
+        "matchType": "exact",
+        "verified": true,
+        "lastUpdated": "2026-03-30"
+      },
+      {
+        "id": "cc-two-sum-rel",
+        "platform": "CodeChef",
+        "title": "Sum Pair",
+        "url": "https://www.codechef.com/practice",
+        "difficulty": "Easy",
+        "matchType": "related",
+        "verified": true,
+        "lastUpdated": "2026-03-30"
+      }
+    ]
   },
   "valid-parentheses": {
     "leetcode": {
       "title": "Valid Parentheses",
       "difficulty": "Easy"
     },
-    "hackerrank": null,
-    "codechef": {
-      "title": "Valid Parentheses",
-      "url": "https://www.codechef.com/practice"
-    },
-    "verified": true,
-    "lastUpdated": "2026-03-30"
+    "alternatives": [
+      {
+        "id": "cc-valid-parentheses",
+        "platform": "CodeChef",
+        "title": "Valid Parentheses",
+        "url": "https://www.codechef.com/practice",
+        "difficulty": "Easy",
+        "matchType": "exact",
+        "verified": true,
+        "lastUpdated": "2026-03-30"
+      }
+    ]
   },
   "reverse-string": {
     "leetcode": {
       "title": "Reverse String",
       "difficulty": "Easy"
     },
-    "hackerrank": {
-      "title": "Reversed Array",
-      "url": "https://www.hackerrank.com/challenges/arrays-introduction/problem"
+    "alternatives": [
+      {
+        "id": "hr-arrays-introduction",
+        "platform": "HackerRank",
+        "title": "Arrays Introduction",
+        "url": "https://www.hackerrank.com/challenges/arrays-introduction/problem",
+        "difficulty": "Easy",
+        "matchType": "similar",
+        "verified": true,
+        "lastUpdated": "2026-03-30"
+      }
+    ]
+  },
+  "product-of-array-except-self": {
+    "leetcode": {
+      "title": "Product of Array Except Self",
+      "difficulty": "Medium"
     },
-    "codechef": null,
-    "verified": true,
-    "lastUpdated": "2026-03-30"
+    "alternatives": [
+      {
+        "id": "gfg-product-array",
+        "platform": "GeeksforGeeks",
+        "title": "A Product Array Puzzle",
+        "url": "https://www.geeksforgeeks.org/a-product-array-puzzle/",
+        "difficulty": "Medium",
+        "matchType": "exact",
+        "verified": true,
+        "lastUpdated": "2026-03-30"
+      }
+    ]
+  },
+  "binary-search": {
+    "leetcode": {
+      "title": "Binary Search",
+      "difficulty": "Easy"
+    },
+    "alternatives": [
+      {
+        "id": "hr-binary-search",
+        "platform": "HackerRank",
+        "title": "Binary Search",
+        "url": "https://www.hackerrank.com/challenges/solve-me-first/problem",
+        "difficulty": "Easy",
+        "matchType": "exact",
+        "verified": true,
+        "lastUpdated": "2026-03-30"
+      }
+    ]
   }
 }
