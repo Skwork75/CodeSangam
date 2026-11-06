@@ -8,7 +8,7 @@
 
 [![Manifest](https://img.shields.io/badge/Manifest-V3-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](#)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#)
-[![Status](https://img.shields.io/badge/Status-In%20Development-orange?style=for-the-badge)](#)
+[![Status](https://img.shields.io/badge/Status-v0.1.0-green?style=for-the-badge)](#)
 [![License](https://img.shields.io/badge/License-MIT-26A641?style=for-the-badge)](#)
 
 </div>
@@ -32,14 +32,6 @@
 
 ---
 
-## 🖼️ Preview
-
-> Add a screenshot of the popup to `docs/screenshots/popup.png` and it will appear here.
-
-![CodeSangam Popup](docs/screenshots/popup.png)
-
----
-
 ## 🏗️ How It Works
 
 ```
@@ -52,7 +44,7 @@ LeetCode tab  ──►  Popup reads URL  ──►  Extracts slug  ──►  L
 4. It looks up the slug in a verified mapping database.
 5. It shows the matching HackerRank and CodeChef problems, or a "not found" message.
 
-For the full technical design, see [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+For the full technical design, see [`docs/ARCHITECTURE.md`](`docs/ARCHITECTURE.md`).
 
 ---
 
@@ -61,10 +53,9 @@ For the full technical design, see [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md
 | Layer | Technology |
 |-------|------------|
 | Extension | Chrome Manifest V3 |
-| UI | HTML, CSS, Vanilla JavaScript |
+| UI | HTML, CSS, Vanilla JavaScript (ES Modules) |
 | Data | Local JSON (`mappings.json`) |
-| Dev tooling | Python (scrapers, fuzzy matching) |
-| Planned | Supabase (community contributions) |
+| Testing & Validation | Node.js built-in `node:test` and custom scripts |
 
 ---
 
@@ -73,37 +64,52 @@ For the full technical design, see [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md
 ```
 codesangam/
 ├── manifest.json
-├── popup/          # UI: popup.html, popup.css, popup.js
-├── lib/            # Logic: matcher.js, slug.js
-├── data/           # mappings.json
+├── package.json
+├── popup/
+│   ├── popup.html
+│   ├── popup.css
+│   └── popup.js
+├── lib/
+│   ├── slug.js
+│   └── matcher.js
+├── data/
+│   └── mappings.json
 ├── icons/
-├── scripts/        # Dev-only scrapers and matching tools
-└── docs/           # Architecture and screenshots
+│   ├── icon16.png
+│   ├── icon32.png
+│   ├── icon48.png
+│   └── icon128.png
+├── scripts/
+│   ├── test_slug.mjs
+│   ├── validate_mappings.mjs
+│   └── make_icons.py
+└── docs/
+    └── ARCHITECTURE.md
 ```
 
 ---
 
 ## 🚀 Installation
 
-### Load the extension locally
+### Load the extension locally in Chrome
 
-1. Clone the repository:
+1. Clone or download the repository:
    ```bash
    git clone https://github.com/Skwork75/CodeSangam.git
    cd CodeSangam
    ```
-2. Open Chrome and go to `chrome://extensions`.
-3. Turn on **Developer mode** (top right).
-4. Click **Load unpacked** and select the `CodeSangam` folder.
-5. Pin the extension from the puzzle icon in the toolbar.
+2. Open Google Chrome and go to `chrome://extensions`.
+3. Turn on **Developer mode** (top right toggle).
+4. Click **Load unpacked** (top left button) and select the `CodeSangam` root folder.
+5. Pin **CodeSangam** from the puzzle icon extension menu in the Chrome toolbar.
 
 ---
 
 ## 📘 Usage
 
 1. Open any problem on LeetCode, for example [Two Sum](https://leetcode.com/problems/two-sum/).
-2. Click the **CodeSangam** icon.
-3. Click a platform card to open the equivalent problem.
+2. Click the **CodeSangam** icon in your toolbar.
+3. View the equivalent problem titles and click **Open** to practice on HackerRank or CodeChef.
 
 ---
 
@@ -115,10 +121,10 @@ Mappings are stored in `data/mappings.json`, keyed by the LeetCode slug:
 {
   "two-sum": {
     "leetcode": { "title": "Two Sum", "difficulty": "Easy" },
-    "hackerrank": { "title": "...", "url": "https://www.hackerrank.com/..." },
+    "hackerrank": { "title": "Solve Me First", "url": "https://www.hackerrank.com/challenges/solve-me-first/problem" },
     "codechef": null,
     "verified": true,
-    "lastUpdated": "2025-01-15"
+    "lastUpdated": "2026-03-30"
   }
 }
 ```
@@ -127,40 +133,33 @@ Mappings are stored in `data/mappings.json`, keyed by the LeetCode slug:
 
 ---
 
-## 🤝 Contributing
+## ⚠️ Current Limitations
 
-Contributions are welcome, especially new verified mappings.
-
-1. Fork the repository.
-2. Add or edit an entry in `data/mappings.json`.
-3. Make sure both URLs open and point to the same problem.
-4. Open a pull request with the title `mapping: <leetcode-slug>`.
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. *(Create this file when you open contributions.)*
-
----
-
-## 🗺️ Roadmap
-
-- [x] Project architecture and data schema
-- [x] Popup UI with dark theme
-- [ ] MVP dataset: top 100 LeetCode problems
-- [ ] Publish to Chrome Web Store
-- [ ] "Suggest a mapping" form
-- [ ] Support for Codeforces and AtCoder
-- [ ] Backend (Supabase) for community mappings
+- Covers an initial curated dataset of verified problems (expanding continuously).
+- Supports LeetCode problem URLs (HackerRank and CodeChef target matching).
 
 ---
 
 ## 🔐 Privacy
 
-CodeSangam reads the URL of the active tab only when you click the icon. It does not collect, store, or transmit any personal data.
+CodeSangam reads the URL of the active tab only when you click the extension icon. It does not collect, store, transmit, or share any personal data, telemetry, or browsing history.
+
+---
+
+## 🤝 Contributing & Bug Reports
+
+Contributions are welcome, especially new verified mappings.
+
+1. Fork the repository.
+2. Add or edit an entry in `data/mappings.json`.
+3. Run `npm run validate` to ensure schema compliance.
+4. Open a pull request.
 
 ---
 
 ## 📄 License
 
-Distributed under the MIT License. See [`LICENSE`](LICENSE) for details.
+Distributed under the MIT License. See [`LICENSE`](`LICENSE`) for details.
 
 ---
 

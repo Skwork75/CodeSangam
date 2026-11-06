@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeSangam</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <h1>🧩 CodeSangam</h1>
+    <p class="tagline">Equivalent problems across platforms</p>
+  </div>
+
+  <main id="app">
+    <div id="loading-state" class="state-container">
+      <div class="spinner"></div>
+      <p>Detecting problem...</p>
+    </div>
+
+    <div id="unsupported-state" class="state-container hidden">
+      <div class="icon-badge">⚠️</div>
+      <h2>Not a LeetCode Problem</h2>
+      <p>Open a LeetCode problem page (e.g. <code>leetcode.com/problems/...</code>) and click CodeSangam to find equivalents.</p>
+    </div>
+
+    <div id="not-found-state" class="state-container hidden">
+      <div class="icon-badge">🔍</div>
+      <h2>No Equivalents Found</h2>
+      <p id="not-found-slug" class="problem-slug"></p>
+      <p class="sub-text">No verified equivalents found for this LeetCode problem yet.</p>
+    </div>
+
+    <div id="result-state" class="state-container hidden">
+      <div class="problem-header">
+        <h2 id="leetcode-title">Problem Title</h2>
+        <span id="leetcode-difficulty" class="difficulty-badge">Easy</span>
+      </div>
+      <p id="leetcode-slug" class="problem-slug"></p>
+
+      <div class="platforms-list">
+        <!-- HackerRank Card -->
+        <div class="platform-card" id="hackerrank-card">
+          <div class="platform-info">
+            <span class="platform-name">HackerRank</span>
+            <span id="hackerrank-title" class="platform-problem-title">--</span>
+          </div>
+          <a id="hackerrank-link" href="#" target="_blank" rel="noopener noreferrer" class="platform-btn hidden">Open</a>
+          <span id="hackerrank-missing" class="platform-missing hidden">No verified match</span>
+        </div>
+
+        <!-- CodeChef Card -->
+        <div class="platform-card" id="codechef-card">
+          <div class="platform-info">
+            <span class="platform-name">CodeChef</span>
+            <span id="codechef-title" class="platform-problem-title">--</span>
+          </div>
+          <a id="codechef-link" href="#" target="_blank" rel="noopener noreferrer" class="platform-btn hidden">Open</a>
+          <span id="codechef-missing" class="platform-missing hidden">No verified match</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="error-state" class="state-container hidden">
+      <div class="icon-badge">❌</div>
+      <h2>Something Went Wrong</h2>
+      <p id="error-message">An unexpected error occurred while loading problem data.</p>
+    </div>
+  </main>
+
+  <footer>
+    <span>CodeSangam v0.1.0</span>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

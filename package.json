@@ -1,0 +1,20 @@
+{
+  "name": "codesangam",
+  "version": "0.1.0",
+  "description": "Find equivalent coding problems across platforms.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test scripts/test_slug.mjs",
+    "validate": "node scripts/validate_mappings.mjs",
+    "check": "npm test && npm run validate"
+  },
+  "keywords": [
+    "chrome-extension",
+    "competitive-programming",
+    "leetcode",
+    "hackerrank",
+    "codechef"
+  ],
+  "author": "Saurabh Kumar",
+  "license": "MIT"
+}

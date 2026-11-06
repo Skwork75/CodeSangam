@@ -1,0 +1,41 @@
+{
+  "two-sum": {
+    "leetcode": {
+      "title": "Two Sum",
+      "difficulty": "Easy"
+    },
+    "hackerrank": {
+      "title": "Solve Me First",
+      "url": "https://www.hackerrank.com/challenges/solve-me-first/problem"
+    },
+    "codechef": null,
+    "verified": true,
+    "lastUpdated": "2026-03-30"
+  },
+  "valid-parentheses": {
+    "leetcode": {
+      "title": "Valid Parentheses",
+      "difficulty": "Easy"
+    },
+    "hackerrank": null,
+    "codechef": {
+      "title": "Valid Parentheses",
+      "url": "https://www.codechef.com/practice"
+    },
+    "verified": true,
+    "lastUpdated": "2026-03-30"
+  },
+  "reverse-string": {
+    "leetcode": {
+      "title": "Reverse String",
+      "difficulty": "Easy"
+    },
+    "hackerrank": {
+      "title": "Reversed Array",
+      "url": "https://www.hackerrank.com/challenges/arrays-introduction/problem"
+    },
+    "codechef": null,
+    "verified": true,
+    "lastUpdated": "2026-03-30"
+  }
+}

@@ -1,0 +1,219 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 340px;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.header {
+  padding: 14px 16px 12px;
+  background-color: #242424;
+  border-bottom: 1px solid #333333;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tagline {
+  margin: 4px 0 0 0;
+  font-size: 11px;
+  color: #888888;
+}
+
+main {
+  padding: 16px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.state-container.hidden {
+  display: none !important;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #333333;
+  border-top: 3px solid #ffa116;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.icon-badge {
+  font-size: 24px;
+  margin-bottom: 2px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+p {
+  margin: 0;
+  color: #b0b0b0;
+  font-size: 12px;
+}
+
+code {
+  background-color: #2a2a2a;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: #ffa116;
+}
+
+.problem-slug {
+  font-family: monospace;
+  color: #888888;
+  font-size: 11px;
+  margin-top: -4px;
+}
+
+.sub-text {
+  color: #888888;
+  font-size: 12px;
+}
+
+.problem-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+
+.difficulty-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #2a2a2a;
+  text-transform: uppercase;
+}
+
+.difficulty-badge.easy { color: #00b8a3; background-color: rgba(0, 184, 163, 0.15); }
+.difficulty-badge.medium { color: #ffc01e; background-color: rgba(255, 192, 30, 0.15); }
+.difficulty-badge.hard { color: #ff375f; background-color: rgba(255, 55, 95, 0.15); }
+
+.platforms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.platform-card {
+  background-color: #242424;
+  border: 1px solid #333333;
+  border-radius: 6px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: border-color 0.2s;
+}
+
+.platform-card:hover {
+  border-color: #444444;
+}
+
+.platform-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  overflow: hidden;
+  padding-right: 8px;
+}
+
+.platform-name {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #888888;
+  letter-spacing: 0.5px;
+}
+
+.platform-problem-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.platform-btn {
+  background-color: #ffa116;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.platform-btn:hover {
+  background-color: #ffb833;
+}
+
+.platform-btn.hidden,
+.platform-missing.hidden {
+  display: none !important;
+}
+
+.platform-missing {
+  font-size: 11px;
+  color: #777777;
+  font-style: italic;
+}
+
+footer {
+  padding: 8px 16px;
+  background-color: #202020;
+  border-top: 1px solid #2a2a2a;
+  display: flex;
+  justify-content: flex-end;
+}
+
+footer span {
+  font-size: 10px;
+  color: #666666;
+}
